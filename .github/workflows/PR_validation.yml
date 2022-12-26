@@ -17,6 +17,7 @@ on:
       - 'scala/dllib/**'
       - '.github/actions/dllib-scala-ut-action/action.yml'
       - 'python/orca/**'
+      - '.github/actions/orca/**'
       - '.github/actions/orca-ray-ctx-example-action/action.yml'
 
 permissions:
@@ -45,6 +46,7 @@ jobs:
               - '.github/actions/dllib-scala-ut-action/action.yml'
             orca:
               - 'python/orca/**'
+              - '.github/actions/orca/**'
               - '.github/actions/orca-ray-ctx-example-action/action.yml'
 
   
