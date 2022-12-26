@@ -1,7 +1,7 @@
 name: Nightly Test
 
 on:
-  #pull_request:
+  pull_request:
   schedule:
     - cron: '0 13 * * *' # GMT time, 13:00 GMT == 21:00 China
   workflow_dispatch:
@@ -23,6 +23,7 @@ on:
         - Dllib-Scala-UT
         - Friesian-Scala-UT
         - PPML-Scala-UT
+        - Orca-Python-Ray-Ctx
         
 
 permissions:
@@ -43,7 +44,15 @@ jobs:
     - name: Run test
       uses: ./.github/actions/orca-python-exampletest-action
 
+  Orca-Python-Ray-Ctx:
+    #if: ${{ github.event.schedule || github.event.inputs.artifact == 'Orca-Python-Ray-Ctx' || github.event.inputs.artifact == 'all' }} 
+    runs-on: [self-hosted, Gondolin-Ctx, ubuntu-20.04-lts]
 
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run Test
+      uses: ./.github/actions/orca/action.yml
+      
   Orca-Python-ExampleTest-Ray-Py37-Spark3:
     if: ${{ github.event.schedule || github.event.inputs.artifact == 'Orca-Python-ExampleTest-Ray-Py37-Spark3' || github.event.inputs.artifact == 'all' }} 
     runs-on: [self-hosted, Gondolin, ubuntu-20.04-lts]
