@@ -1,7 +1,7 @@
 name: Nightly Test
 
 on:
-  #pull_request:
+  pull_request:
   schedule:
     - cron: '0 13 * * *' # GMT time, 13:00 GMT == 21:00 China
   workflow_dispatch:
@@ -43,6 +43,15 @@ jobs:
       uses: ./.github/actions/maven-setup-action
     - name: Run test
       uses: ./.github/actions/orca-python-exampletest-action
+      
+  Dllib-Python-Integration:
+    #if: ${{ github.event.schedule || github.event.inputs.artifact == 'Dllib-Python-Integration' || github.event.inputs.artifact == 'all' }} 
+    runs-on: [self-hosted, dllib-integration]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Run test
+      uses: ./.github/actions/dllib-integration.yml
       
   Orca-Python-ExampleTest-Ray-Py37-Spark3:
     if: ${{ github.event.schedule || github.event.inputs.artifact == 'Orca-Python-ExampleTest-Ray-Py37-Spark3' || github.event.inputs.artifact == 'all' }} 
